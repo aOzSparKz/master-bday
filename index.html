@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday, Master Jr! 🎉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0ea5e9; /* sky-500 */
+      --bg2:#7c3aed; /* violet-600 */
+      --bg3:#06b6d4; /* cyan-500 */
+      --card:#ffffff;
+      --accent:#f59e0b; /* amber-500 */
+      --text:#0b1021;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:#fff;
+      overflow-x:hidden;
+      background: radial-gradient(1200px 1200px at 10% 10%, rgba(255,255,255,.1), transparent 60%),
+                  radial-gradient(1200px 1200px at 90% 90%, rgba(255,255,255,.08), transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 300% 300%;
+      animation: bgShift 15s ease-in-out infinite;
+    }
+    @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Floating balloons */
+    .balloon{position:absolute; bottom:-20vh; width:90px; height:120px; border-radius:50% 50% 45% 55%/55% 55% 45% 45%;
+      box-shadow:inset -10px -20px 40px rgba(0,0,0,.25);
+      filter:saturate(1.1);
+    }
+    .balloon:after{content:""; position:absolute; bottom:-24px; left:50%; width:3px; height:120px; background:rgba(255,255,255,.5); transform:translateX(-50%);}
+    .b1{left:10%; background:#ef4444; animation:floatUp 18s linear infinite 0s;}
+    .b2{left:28%; background:#22c55e; animation:floatUp 20s linear infinite 1s;}
+    .b3{left:46%; background:#3b82f6; animation:floatUp 22s linear infinite 2s;}
+    .b4{left:64%; background:#f59e0b; animation:floatUp 19s linear infinite 3s;}
+    .b5{left:82%; background:#a855f7; animation:floatUp 21s linear infinite 4s;}
+    @keyframes floatUp{
+      0%{transform:translateY(0) translateX(0) scale(0.9); opacity:.85}
+      50%{transform:translateY(-60vh) translateX(20px) scale(1.05);}
+      100%{transform:translateY(-120vh) translateX(-10px) scale(0.95); opacity:0}
+    }
+
+    /* Main wrapper */
+    .wrap{position:relative; min-height:100vh; display:grid; place-items:center; padding:24px}
+
+    /* Card */
+    .card{
+      position:relative;
+      width:min(940px, 92vw);
+      background:rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.1);
+      border-radius:28px;
+      padding:28px 28px 40px;
+      transform: translateY(10px);
+      opacity:0;
+      animation: popIn .9s cubic-bezier(.2,.8,.2,1) .6s forwards;
+    }
+    @keyframes popIn{to{opacity:1; transform:translateY(0)}}
+
+    .heading{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+    .avatar{
+      width:84px; height:84px; border-radius:50%; flex:0 0 auto;
+      background:linear-gradient(135deg, #ffe08a, #ffc46b);
+      display:grid; place-items:center; color:#111; font-weight:800; font-size:26px;
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.7), 0 12px 24px rgba(0,0,0,.25);
+      animation: bob 3s ease-in-out infinite;
+    }
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    h1{margin:0; font-size:clamp(28px, 5vw, 48px); line-height:1.1; letter-spacing:.2px}
+    .sub{opacity:.95; font-weight:300; margin-top:4px}
+
+    /* Typewriter lines */
+    .message{margin-top:18px; font-size:clamp(16px, 2.3vw, 20px); line-height:1.7; color:#f8fafc}
+    .line{opacity:0; transform:translateY(10px);}
+    .line.show{opacity:1; transform:translateY(0); transition: .6s cubic-bezier(.2,.8,.2,1)}
+
+    /* CTA row */
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+    button{
+      appearance:none; border:0; cursor:pointer; font-weight:600; font-size:16px;
+      padding:14px 18px; border-radius:16px; transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-primary{background:#111827; color:#fff; box-shadow:0 10px 24px rgba(0,0,0,.25)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-ghost{background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.25)}
+    .btn-sound {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    /* Footer tag */
+    .tag{margin-top:22px; font-size:14px; opacity:.8}
+
+    /* Confetti */
+    .confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden}
+    .confetti-piece{position:absolute; top:-10px; width:10px; height:18px; opacity:.9; will-change:transform}
+    @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+    /* Sparkle ring */
+    .ring{position:absolute; inset:-2px; border-radius:28px; filter:blur(8px); opacity:.6;
+      background: conic-gradient(from 0deg, #fff0, #fff8, #fff0);
+      mask: linear-gradient(#000, #000) content-box, linear-gradient(#000,#000);
+      -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000,#000);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      padding:2px;
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Audio controls */
+    .audio-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 15px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+    }
+    .audio-controls button {
+      padding: 8px 12px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:520px){
+      .avatar{width:72px;height:72px;font-size:22px}
+      .audio-controls {
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating balloons -->
+  <div class="balloon b1"></div>
+  <div class="balloon b2"></div>
+  <div class="balloon b3"></div>
+  <div class="balloon b4"></div>
+  <div class="balloon b5"></div>
+
+  <div class="wrap">
+    <article class="card" id="card">
+      <div class="ring" aria-hidden="true"></div>
+      <header class="heading">
+        <div>
+          <h1>Happy Birthday, <span style="white-space:nowrap">Master Jr! 🎉</span></h1>
+          <div class="sub">From your VCT IT family — with gratitude and lots of laughter.</div>
+        </div>
+      </header>
+
+      <section class="message" id="message">
+        <!-- Each line reveals with a smooth stagger -->
+        <p class="line">The best of the best mentor — always supportive to the entire IT Department.</p>
+        <p class="line">You are our idol — solid! If you ever leave, we'll follow… hehe, char!</p>
+        <p class="line">We're grateful to have a good boss like you, always listening to our concerns.</p>
+        <p class="line">Proud to have as our master and mentor — we'll keep growing!</p>
+        <p class="line">Thank you for the guidance and support in our VCT journey.</p>
+        <p class="line">"Gusto mo lumigaya? May alam ako!" 😂</p>
+      </section>
+
+      <div class="actions">
+        <button class="btn-primary" id="celebrateBtn">🎊 Unli Pop!</button>
+      </div>
+      
+      <div class="tag"> ❤️ ITSS Department</div>
+    </article>
+  </div>
+
+  <!-- Audio controls -->
+  <div class="audio-controls">
+    <button id="playBtn" class="btn-sound">🔇</button>
+  </div>
+
+  <audio id="birthdaySound" src="jr.mp3" preload="auto" loop></audio>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script>
+    // Reveal message lines with a staggered transition
+    const lines = Array.from(document.querySelectorAll('.line'));
+    lines.forEach((el, i)=>{
+      setTimeout(()=> el.classList.add('show'), 200 + i*280);
+    });
+
+    // Confetti generator (no external libs)
+    function random(min, max){return Math.random()*(max-min)+min}
+    function makeConfettiBurst(count=160){
+      const colors = ['#f43f5e','#22c55e','#3b82f6','#eab308','#a855f7','#06b6d4','#ef4444'];
+      const area = document.getElementById('confetti');
+      const frag = document.createDocumentFragment();
+      for(let i=0;i<count;i++){
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        const size = random(6,14);
+        piece.style.width = size+'px';
+        piece.style.height = (size*1.6)+'px';
+        piece.style.left = random(0, 100)+'vw';
+        piece.style.background = colors[Math.floor(random(0, colors.length))];
+        piece.style.opacity = random(.65, 1);
+        piece.style.transform = `translateY(-10vh) rotate(${random(0,360)}deg)`;
+        const duration = random(3.5, 6.5);
+        piece.style.animation = `fall ${duration}s ease-in forwards`;
+        frag.appendChild(piece);
+      }
+      area.appendChild(frag);
+      // Cleanup after animation
+      setTimeout(()=>{ area.innerHTML=''; }, 7000);
+    }
+
+    // Buttons
+    document.getElementById('celebrateBtn').addEventListener('click', ()=>{
+      makeConfettiBurst();
+      pulseCard();
+    });
+
+    function pulseCard(){
+      const card = document.getElementById('card');
+      card.animate([
+        {transform:'scale(1)', filter:'brightness(1)'},
+        {transform:'scale(1.02)', filter:'brightness(1.08)'},
+        {transform:'scale(1)', filter:'brightness(1)'}
+      ],{duration:600, easing:'cubic-bezier(.2,.8,.2,1)'});
+    }
+
+    // Auto-celebrate on load
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>{ makeConfettiBurst(200); }, 600);
+    });
+
+    // Audio handling
+    const sound = document.getElementById("birthdaySound");
+    const playBtn = document.getElementById("playBtn");
+    let audioEnabled = false;
+    
+    // Set volume
+    sound.volume = 0.7;
+    
+    // Try to play automatically (muted) on page load
+    window.addEventListener('load', () => {
+      sound.muted = true;
+      const playPromise = sound.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay prevented:", error);
+          // Show unmute button to allow user to enable sound
+          playBtn.textContent = "🔇";
+        });
+      }
+    });
+    
+    // Enable sound on button click
+    playBtn.addEventListener('click', () => {
+      if (!audioEnabled) {
+        // First user interaction - enable sound
+        sound.muted = false;
+        audioEnabled = true;
+        playBtn.textContent = "🔊";
+        
+        // Try to play if not already playing
+        if (sound.paused) {
+          sound.play().catch(error => {
+            console.log("Play failed:", error);
+            playBtn.textContent = "❌ Error";
+          });
+        }
+      } else {
+        // Toggle sound on/off after initial enable
+        if (sound.muted) {
+          sound.muted = false;
+          playBtn.textContent = "🔊";
+        } else {
+          sound.muted = true;
+          playBtn.textContent = "🔇";
+        }
+      }
+    });
+    
+    // Also enable sound on any click anywhere on the page
+    document.addEventListener('click', () => {
+      if (!audioEnabled) {
+        sound.muted = false;
+        audioEnabled = true;
+        playBtn.textContent = "🔊";
+        
+        if (sound.paused) {
+          sound.play().catch(error => {
+            console.log("Play failed:", error);
+          });
+        }
+      }
+    }, { once: true }); // Only run this once
+
+  </script>
+</body>
+</html>
