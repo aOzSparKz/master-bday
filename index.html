@@ -147,6 +147,32 @@
       justify-content: center;
     }
 
+    /* Dancing People */
+    .dancers {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 25px;
+      z-index: 90;
+      font-size: 2.5rem;
+    }
+    .dancer {
+      animation: dance 1s infinite;
+    }
+    .d1 { animation-delay: 0s; }
+    .d2 { animation-delay: 0.2s; }
+    .d3 { animation-delay: 0.4s; }
+    .d4 { animation-delay: 0.6s; }
+    .d5 { animation-delay: 0.8s; }
+    @keyframes dance {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-15px) rotate(-10deg); }
+      50% { transform: translateY(0) rotate(10deg); }
+      75% { transform: translateY(-12px) rotate(-6deg); }
+    }
+
     /* Responsive tweaks */
     @media (max-width:520px){
       .avatar{width:72px;height:72px;font-size:22px}
@@ -176,7 +202,6 @@
       </header>
 
       <section class="message" id="message">
-        <!-- Each line reveals with a smooth stagger -->
         <p class="line">The best of the best mentor — always supportive to the entire IT Department.</p>
         <p class="line">You are our idol — solid! If you ever leave, we'll follow… hehe, char!</p>
         <p class="line">We're grateful to have a good master like you, always listening to our concerns.</p>
@@ -191,6 +216,15 @@
       
       <div class="tag"> ❤️ ITSS Department</div>
     </article>
+  </div>
+
+  <!-- Dancing People -->
+  <div class="dancers">
+    <div class="dancer d1">🕺</div>
+    <div class="dancer d2">💃</div>
+    <div class="dancer d3">🕺</div>
+    <div class="dancer d4">💃</div>
+    <div class="dancer d5">🕺</div>
   </div>
 
   <!-- Audio controls -->
@@ -208,7 +242,7 @@
       setTimeout(()=> el.classList.add('show'), 200 + i*280);
     });
 
-    // Confetti generator (no external libs)
+    // Confetti generator
     function random(min, max){return Math.random()*(max-min)+min}
     function makeConfettiBurst(count=160){
       const colors = ['#f43f5e','#22c55e','#3b82f6','#eab308','#a855f7','#06b6d4','#ef4444'];
@@ -229,7 +263,6 @@
         frag.appendChild(piece);
       }
       area.appendChild(frag);
-      // Cleanup after animation
       setTimeout(()=>{ area.innerHTML=''; }, 7000);
     }
 
@@ -257,33 +290,24 @@
     const sound = document.getElementById("birthdaySound");
     const playBtn = document.getElementById("playBtn");
     let audioEnabled = false;
-    
-    // Set volume
     sound.volume = 0.7;
-    
-    // Try to play automatically (muted) on page load
+
     window.addEventListener('load', () => {
       sound.muted = true;
       const playPromise = sound.play();
-      
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.log("Autoplay prevented:", error);
-          // Show unmute button to allow user to enable sound
           playBtn.textContent = "🔇";
         });
       }
     });
     
-    // Enable sound on button click
     playBtn.addEventListener('click', () => {
       if (!audioEnabled) {
-        // First user interaction - enable sound
         sound.muted = false;
         audioEnabled = true;
         playBtn.textContent = "🔊";
-        
-        // Try to play if not already playing
         if (sound.paused) {
           sound.play().catch(error => {
             console.log("Play failed:", error);
@@ -291,7 +315,6 @@
           });
         }
       } else {
-        // Toggle sound on/off after initial enable
         if (sound.muted) {
           sound.muted = false;
           playBtn.textContent = "🔊";
@@ -302,22 +325,18 @@
       }
     });
     
-    // Also enable sound on any click anywhere on the page
     document.addEventListener('click', () => {
       if (!audioEnabled) {
         sound.muted = false;
         audioEnabled = true;
         playBtn.textContent = "🔊";
-        
         if (sound.paused) {
           sound.play().catch(error => {
             console.log("Play failed:", error);
           });
         }
       }
-    }, { once: true }); // Only run this once
-
+    }, { once: true });
   </script>
 </body>
-
 </html>
